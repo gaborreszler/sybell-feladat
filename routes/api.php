@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CityTemperatureController;
 use App\Http\Controllers\FrequencyScheduleController;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,15 +21,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', static fn (Request $request) => $request->user());
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->group(static function (): void {
     Route::resource('frequency-schedules', FrequencyScheduleController::class)->only([
-        'index', 'update', 'destroy'
+        'index', 'update', 'destroy',
     ]);
     Route::resource('cities', CityController::class)->only([
-        'index', 'update', 'destroy'
+        'index', 'update', 'destroy',
     ]);
 
-    Route::controller(CityTemperatureController::class)->group(function () {
+    Route::controller(CityTemperatureController::class)->group(static function (): void {
         Route::get('/city-temperatures', [CityTemperatureController::class, 'index'])->name('city-temperatures.index');
         Route::patch('/city-temperatures/{id}', [CityTemperatureController::class, 'update'])->name('city-temperatures.update');
         Route::delete('/city-temperatures/{id}', [CityTemperatureController::class, 'destroy'])->name('city-temperatures.destroy');

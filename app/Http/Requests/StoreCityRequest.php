@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -17,11 +19,11 @@ class StoreCityRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<mixed>|\Illuminate\Contracts\Validation\ValidationRule|string>
      */
     public function rules(): array
     {
-        //dd($this->input());
+        // dd($this->input());
         return [
             'name' => ['required', 'string', 'max:255'],
             'frequency_schedule' => ['nullable', 'integer', 'exists:frequency_schedules,id', 'exclude_unless:frequency_schedule_custom,null'],

@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
                 'name',
             ])
             ->with('frequencySchedule')
-            ->get();
+            ->get()
+        ;
 
         foreach ($citys as $city) {
             $city->coordinates = json_decode($city->coordinates, true)['coordinates'];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFrequencyScheduleRequest;
@@ -27,7 +29,7 @@ class FrequencyScheduleController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
-                'data' => $frequencySchedules
+                'data' => $frequencySchedules,
             ]);
         }
 
@@ -37,34 +39,22 @@ class FrequencyScheduleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create(): void {}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFrequencyScheduleRequest $request)
-    {
-        //
-    }
+    public function store(StoreFrequencyScheduleRequest $request): void {}
 
     /**
      * Display the specified resource.
      */
-    public function show(FrequencySchedule $frequencySchedule)
-    {
-        //
-    }
+    public function show(FrequencySchedule $frequencySchedule): void {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FrequencySchedule $frequencySchedule)
-    {
-        //
-    }
+    public function edit(FrequencySchedule $frequencySchedule): void {}
 
     /**
      * Update the specified resource in storage.
@@ -79,7 +69,7 @@ class FrequencyScheduleController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
-                'data' => $frequencySchedule
+                'data' => $frequencySchedule,
             ]);
         }
 

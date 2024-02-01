@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCityTemperatureRequest;
@@ -29,7 +31,7 @@ class CityTemperatureController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
-                'data' => $cityTemperatures
+                'data' => $cityTemperatures,
             ]);
         }
 
@@ -39,64 +41,47 @@ class CityTemperatureController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create(): void {}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCityTemperatureRequest $request)
-    {
-        //
-    }
+    public function store(StoreCityTemperatureRequest $request): void {}
 
     /**
      * Display the specified resource.
      */
-    public function show(CityTemperature $cityTemperature)
-    {
-        //
-    }
+    public function show(CityTemperature $cityTemperature): void {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CityTemperature $cityTemperature)
-    {
-        //
-    }
+    public function edit(CityTemperature $cityTemperature): void {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCityTemperatureRequest $request, CityTemperature $cityTemperature)
-    {
-        //
-    }
+    public function update(UpdateCityTemperatureRequest $request, CityTemperature $cityTemperature): void {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CityTemperature $cityTemperature)
-    {
-        //
-    }
+    public function destroy(CityTemperature $cityTemperature): void {}
 
     public function metrics(City $city): Response
     {
         $cityTemperature = $city
             ->cityTemperatures()
             ->orderByDesc('created_at')
-            ->first();
+            ->first()
+        ;
 
         $hourly = json_decode($cityTemperature->hourly);
         $metrics = [];
         foreach ($hourly->time as $key => $time) {
             $metrics[] = sprintf(
                 'http_temperatures_%s{city=%s, datetime=%s} %f',
-                json_decode($cityTemperature->hourly_units)->temperature_2m === '°C'
+                '°C' === json_decode($cityTemperature->hourly_units)->temperature_2m
                     ? 'celsius'
                     : 'fahrenheit',
                 $cityTemperature->city->name,
@@ -113,7 +98,7 @@ class CityTemperatureController extends Controller
 
             $metrics[] = sprintf(
                 'http_wind_speed_%s{city=%s, datetime=%s} %f',
-                json_decode($cityTemperature->hourly_units)->wind_speed_10m === 'kilometers_per_hour'
+                'kilometers_per_hour' === json_decode($cityTemperature->hourly_units)->wind_speed_10m
                     ? 'kilometers_per_hour'
                     : 'miles_per_hour',
                 $cityTemperature->city->name,
@@ -134,7 +119,8 @@ class CityTemperatureController extends Controller
             ->groupBy('city_id')
             ->orderByDesc('created_at')
             ->with('city')
-            ->get();
+            ->get()
+        ;
 
         return view('city-temperatures.chart', compact('cityTemperatures'));
     }

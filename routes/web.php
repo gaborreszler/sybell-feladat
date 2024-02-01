@@ -29,7 +29,7 @@ Route::middleware('auth')->group(static function (): void {
 
     Route::resource('cities', CityController::class);
 
-    Route::controller(CityTemperatureController::class)->group(function () {
+    Route::controller(CityTemperatureController::class)->group(static function (): void {
         Route::get('/forecasts', [CityTemperatureController::class, 'chart'])->name('city-temperatures.chart');
     });
 });

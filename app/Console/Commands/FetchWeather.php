@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\CityTemperature;
@@ -26,7 +28,7 @@ class FetchWeather extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $city = json_decode($this->argument('city'));
 

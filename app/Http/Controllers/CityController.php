@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCityRequest;
@@ -31,7 +33,7 @@ class CityController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
-                'data' => $cities
+                'data' => $cities,
             ]);
         }
 
@@ -69,7 +71,7 @@ class CityController extends Controller
         $openmeteo = new OpenMeteo($cityName);
         $coordinates = $openmeteo->getCoordinates();
 
-        if (! is_null($validated['frequency_schedule_custom'])) {
+        if (null !== $validated['frequency_schedule_custom']) {
             $frequencySchedule = FrequencySchedule::query()->firstOrNew(
                 ['schedule' => $validated['frequency_schedule_custom']],
                 ['frequency' => 'N/A']
@@ -81,7 +83,8 @@ class CityController extends Controller
         $city->name = $cityName;
         $city->frequency_schedule_id = $validated['frequency_schedule'] ?? $frequencySchedule->id;
         $city->coordinates = DB::raw(
-            sprintf('POINT(%g, %g)',
+            sprintf(
+                'POINT(%g, %g)',
                 $coordinates['latitude'],
                 $coordinates['longitude']
             )
@@ -94,18 +97,12 @@ class CityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(City $city)
-    {
-        //
-    }
+    public function show(City $city): void {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(City $city)
-    {
-        //
-    }
+    public function edit(City $city): void {}
 
     /**
      * Update the specified resource in storage.
@@ -119,7 +116,7 @@ class CityController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Success',
-                'data' => $city
+                'data' => $city,
             ]);
         }
 
