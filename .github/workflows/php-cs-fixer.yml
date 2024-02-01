@@ -9,6 +9,9 @@ jobs:
   php-cs-fixer:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -32,8 +35,8 @@ jobs:
       - name: Run php-cs-fixer
         run: |
           ~/.composer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose
-          git config --global user.name "Your Name"
-          git config --global user.email "you@example.com"
-          git add .
-          git diff-index --quiet HEAD || git commit -m "Fix coding standards with php-cs-fixer"
-          git push https://$GH_TOKEN@github.com/${{ github.repository }}.git HEAD:main
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Fix coding standards with php-cs-fixer
