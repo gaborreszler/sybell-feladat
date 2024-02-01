@@ -61,6 +61,13 @@ DELETE https://sybell-feladat.test/api/v1/cities/1
 Accept: application/json
 Content-Type: application/json
 
+### City temperatures index API endpoint
+
+# curl -X GET -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/city-temperatures'
+GET https://sybell-feladat.test/api/v1/city-temperatures
+Content-Type: application/json
+Accept: application/json
+
 ### City temperatures metrics API endpoint
 
 # curl -X GET -H "Content-type: text/plain" -H 'Accept: text/plain' 'https://sybell-feladat.test/api/v1/city-temperatures/city/1/metrics'
