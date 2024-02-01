@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('cities.create')" :active="request()->routeIs('cities.create')">
+                        {{ __('New schedule') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('city-temperatures.chart')" :active="request()->routeIs('city-temperatures.chart')">
+                        {{ __('Weather forecasts') }}
+                    </x-nav-link>
                 </div>
             </div>
 
