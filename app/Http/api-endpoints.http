@@ -1,0 +1,76 @@
+### Frequency schedule index API endpoint
+
+# curl -X GET -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/frequency-schedules'
+GET https://sybell-feladat.test/api/v1/frequency-schedules
+Content-Type: application/json
+Accept: application/json
+
+### Frequency schedule update API endpoint
+
+# curl -X PATCH -H "Content-type: application/json" -H 'Accept: application/json' -d '{"frequency": "on sundays", "schedule": "0 0 * * 0"}' 'https://sybell-feladat.test/api/v1/frequency-schedules/1'
+PATCH https://sybell-feladat.test/api/v1/frequency-schedules/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "frequency": "on sundays",
+    "schedule": "0 0 * * 0"
+}
+
+### Frequency schedule update API endpoint (failing validation)
+
+# curl -X PATCH -H "Content-type: application/json" -H 'Accept: application/json' -d '{"frequency": "invalid cron format", "schedule": "invalid 0 * * 0"}' 'https://sybell-feladat.test/api/v1/frequency-schedules/1'
+PATCH https://sybell-feladat.test/api/v1/frequency-schedules/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "frequency": "on sundays",
+    "schedule": "invalid 0 * * 0"
+}
+
+### Frequency schedule destroy API endpoint
+
+# curl -X DELETE -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/frequency-schedules/22'
+DELETE https://sybell-feladat.test/api/v1/frequency-schedules/22
+Accept: application/json
+Content-Type: application/json
+
+### City index API endpoint
+
+# curl -X GET -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/cities'
+GET https://sybell-feladat.test/api/v1/cities
+Content-Type: application/json
+Accept: application/json
+
+### City update API endpoint
+
+# curl -X PATCH -H "Content-type: application/json" -H 'Accept: application/json' -d '{"name": "Tokyo"}' 'https://sybell-feladat.test/api/v1/cities/1'
+PATCH https://sybell-feladat.test/api/v1/cities/1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Tokyo"
+}
+
+### City destroy API endpoint
+
+# curl -X DELETE -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/cities/1'
+DELETE https://sybell-feladat.test/api/v1/cities/1
+Accept: application/json
+Content-Type: application/json
+
+### City temperatures index API endpoint
+
+# curl -X GET -H "Content-type: application/json" -H 'Accept: application/json' 'https://sybell-feladat.test/api/v1/city-temperatures'
+GET https://sybell-feladat.test/api/v1/city-temperatures
+Content-Type: application/json
+Accept: application/json
+
+### City temperatures metrics API endpoint
+
+# curl -X GET -H "Content-type: text/plain" -H 'Accept: text/plain' 'https://sybell-feladat.test/api/v1/city-temperatures/city/1/metrics'
+GET https://sybell-feladat.test/api/v1/city-temperatures/city/1/metrics
+Content-Type: text/plain
+Accept: text/plain
