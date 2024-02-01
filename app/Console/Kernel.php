@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Console\Commands\FetchWeather;
+use App\Models\City;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +16,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $citys = City::query()
+            ->selectRaw('(ST_AsGeoJSON(coordinates)) AS "coordinates"')
+            ->addSelect([
+                'id',
+                'frequency_schedule_id',
+                'name',
+            ])
+            ->with('frequencySchedule')
+            ->get();
+
+        foreach ($citys as $city) {
+            $city->coordinates = json_decode($city->coordinates, true)['coordinates'];
+            $schedule->command(FetchWeather::class, [$city])->cron($city->frequencySchedule->schedule);
+        }
     }
 
     /**
