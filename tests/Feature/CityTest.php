@@ -1,15 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CityTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class CityTest extends TestCase
 {
-    public function test_can_store_city_web(): void
+    public function testCanStoreCityWeb(): void
     {
         $user = User::factory()->create();
         $response = $this
@@ -18,12 +23,13 @@ class CityTest extends TestCase
                 'name' => 'Moscow',
                 'frequency_schedule' => 1,
                 'frequency_schedule_custom' => '* * * * *',
-            ]);
+            ])
+        ;
 
         $response->assertRedirectToRoute('city-temperatures.chart');
     }
 
-    public function test_can_see_cities_api(): void
+    public function testCanSeeCitiesApi(): void
     {
         $response = $this->get('/api/v1/cities');
 
